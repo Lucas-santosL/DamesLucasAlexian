@@ -38,9 +38,9 @@ plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
 # Version pygame
 case_size = 80
 cases_blanches = (255, 255, 255)
-cases_noires = (20, 234, 109)
+cases_noires = (1, 1, 1)
 pions_blancs = (255, 255, 255)
-pions_noirs = (3, 3, 3)
+pions_noirs = (255, 255, 255 )
 
 # Marges autour du damier
 marge_gauche = 10
@@ -62,7 +62,7 @@ window_size = (case_size * nb_colonnes
                + marge_haut
                + marge_bas
                )
-window_color = (89, 152, 255)
+window_color = (250, 202, 255)
 screen = pygame.display.set_mode(window_size)
 icon = pygame.image.load(path_to_images + "International_draughts.png")
 pygame.display.set_icon(icon)
