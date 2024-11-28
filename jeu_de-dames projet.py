@@ -58,7 +58,7 @@ nb_colonnes = len(plateau)
 window_size = (case_size * nb_colonnes
                + marge_gauche
                + marge_droite,
-               case_size
+               case_size*nb_colonnes
                + marge_haut
                + marge_bas
                )
