@@ -33,7 +33,9 @@ def dessine_case(case_pos):
 # --- MAIN ---
 # ------------
 
-plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+
+
 
 # Version pygame
 case_size = 80
