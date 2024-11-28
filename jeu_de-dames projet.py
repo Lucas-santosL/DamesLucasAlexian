@@ -40,7 +40,7 @@ case_size = 80
 cases_blanches = (255, 255, 255)
 cases_noires = (20, 234, 109)
 pions_blancs = (255, 255, 255)
-pions_noirs = (0, 0, 0)
+pions_noirs = (3, 3, 3)
 
 # Marges autour du damier
 marge_gauche = 10
