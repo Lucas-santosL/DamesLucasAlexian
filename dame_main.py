@@ -113,6 +113,13 @@ pion = pygame.transform.scale(pion, (case_size, case_size))
 screen.blit(pion, (marge_gauche, marge_haut))
 pygame.display.flip()
 
+#afiché le deuxième pion
+pion_pos_noir = 0  # Position initiale du pion
+pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
+pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+screen.blit(pion_noir, (marge_gauche, marge_haut))
+pygame.display.flip()
+
 # Boucle principale
 running = True
 while running:
