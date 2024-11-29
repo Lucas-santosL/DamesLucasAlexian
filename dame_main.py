@@ -5,8 +5,10 @@ Date    : 14.11.24
 Version : 3.7
 Purpose : Jeu de dames avec la librairie pygame
 """
+from idlelib.colorizer import color_config
 
 import pygame
+from pygame.examples.cursors import color_cursor
 
 
 def dessine_case(col, row):
@@ -84,8 +86,8 @@ def bouge_bas():
 
 # Paramètres du plateau
 case_size = 80
-cases_blanches = (255, 255, 255)
-cases_noires = (0, 0, 0)
+cases_blanches = (240, 230, 140)
+cases_noires = (160, 82, 45)
 
 
 # Marges autour du damier
@@ -104,7 +106,7 @@ nb_colonnes = 10  # Nombre de colonnes
 # Taille de la fenêtre
 window_size = (case_size * nb_colonnes + marge_gauche + marge_droite,
                case_size * nb_lignes + marge_haut + marge_bas)
-window_color = (250, 202, 255)
+window_color = (255, 255, 255)
 
 # Création de la fenêtre
 screen = pygame.display.set_mode(window_size)
