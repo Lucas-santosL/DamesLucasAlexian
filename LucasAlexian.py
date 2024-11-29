@@ -16,12 +16,56 @@ def dessine_case(col, row):
     # Alterne entre case blanche et noire
     couleur = cases_blanches if (col + row) % 2 else cases_noires
 
-    # Dessine la case
-    pygame.draw.rect(screen, couleur,
-                     (marge_gauche + col * case_size,
-                      marge_haut + row * case_size,
-                      case_size,
-                      case_size), 0)
+# ------------
+# --- MAIN ---
+# ------------
+
+plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+
+# Version pygame
+case_size = 80
+cases_blanches = (255, 255, 255)
+cases_noires = (1, 1, 1)
+pions_blancs = (255, 255, 255)
+pions_noirs = (255, 255, 255 )
+
+# Marges autour du damier
+marge_gauche = 10
+marge_droite = 10
+marge_haut = 10
+marge_bas = 10
+
+pion_pos = 0
+
+path_to_images = "pictures\\pictures\\"
+pygame.init()
+
+# Window size x, y
+nb_colonnes = len(plateau)
+window_size = (case_size * nb_colonnes
+               + marge_gauche
+               + marge_droite,
+               case_size*nb_colonnes
+               + marge_haut
+               + marge_bas
+               )
+window_color = (250, 202, 255)
+screen = pygame.display.set_mode(window_size)
+icon = pygame.image.load(path_to_images + "International_draughts.png")
+pygame.display.set_icon(icon)
+pygame.display.set_caption("MA-24_pion.png")
+screen.fill(window_color)
+
+# Affiche le damier
+for case in range(nb_colonnes):
+    dessine_case(case)
+
+
+# Charge l'image du pion
+pion = pygame.image.load(path_to_images + "MA-24_pion.png")
+pion = pygame.transform.scale(pion, (case_size, case_size))
+screen.blit(pion, (marge_gauche, marge_haut))
+pygame.display.flip()
 
 
 def afficher_plateau(plateau):
