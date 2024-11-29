@@ -73,6 +73,7 @@ screen.fill(window_color)
 for case in range(nb_colonnes):
     dessine_case(case)
 
+
 # Charge l'image du pion
 pion = pygame.image.load(path_to_images + "MA-24_pion.png")
 pion = pygame.transform.scale(pion, (case_size, case_size))
