@@ -61,6 +61,24 @@ def bouge_gauche():
         pion_pos -= 1
     screen.blit(pion, (marge_gauche + case_size * pion_pos, marge_haut))
 
+def bouge_haut():
+    """Déplace le pion noir vers le haut"""
+    global screen, case_size, marge_gauche, marge_haut, pion_pos_noir, pion_noir, nb_colonnes
+    if pion_pos_noir > 0:
+        dessine_case(0, pion_pos_noir)
+        pion_pos_noir -= 1
+    screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
+
+
+def bouge_bas():
+    """Déplace le pion noir vers le bas"""
+    global screen, case_size, marge_gauche, marge_haut, pion_pos_noir, pion_noir, nb_colonnes
+    if pion_pos_noir < (nb_colonnes - 1):
+        dessine_case(0, pion_pos_noir)
+        pion_pos_noir += 1
+    screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
+
+
 
 # ------------ MAIN -------------
 
@@ -69,9 +87,6 @@ case_size = 80
 cases_blanches = (255, 255, 255)
 cases_noires = (0, 0, 0)
 
-# Couleurs des pions
-pions_blancs = (255, 255, 255)
-pions_noirs = (0, 0, 0)
 
 # Marges autour du damier
 marge_gauche = 10
@@ -111,7 +126,6 @@ pion_pos = 0  # Position initiale du pion
 pion = pygame.image.load(path_to_images + "MA-24_pion.png")
 pion = pygame.transform.scale(pion, (case_size, case_size))
 screen.blit(pion, (marge_gauche, marge_haut))
-pygame.display.flip()
 
 #afiché le deuxième pion
 pion_pos_noir = 0  # Position initiale du pion
@@ -132,10 +146,12 @@ while running:
             bouge_droite()
         elif btn_presse[pygame.K_LEFT]:
             bouge_gauche()
+        elif btn_presse[pygame.K_UP]:
+            bouge_haut()
+        elif btn_presse[pygame.K_DOWN]:
+            bouge_bas()
         elif btn_presse[pygame.K_q]:
             running = False
 
         pygame.display.update()
-
 pygame.quit()
-#test
