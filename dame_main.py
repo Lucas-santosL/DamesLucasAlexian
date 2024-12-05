@@ -165,5 +165,9 @@ while running:
            #if pion_pos_noir < (nb_colonnes - 1) and pion_ligne_noir > 0:
                 #pion_ligne_noir, pion_pos_noir = bouger_pion(pion_noir, pion_ligne_noir, pion_pos_noir, pion_ligne_noir - 1, pion_pos_noir + 1)
 
-        pygame.display.update()
+        #elif btn_presse[pygame.K_q]:
+            #running = False
+
+        #pygame.display.update()
+
 pygame.quit()
