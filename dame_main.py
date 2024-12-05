@@ -19,7 +19,7 @@ def dessine_case(col, row, couleur):
                       case_size,
                       case_size), 0)
 
-def dessine_toutes_les_cases():
+def dessine_toutes_les_case():
     """Redessine toutes les cases du plateau"""
     for row in range(nb_lignes):
         for col in range(nb_colonnes):
@@ -74,7 +74,7 @@ icon = pygame.image.load(path_to_images + "International_draughts.png")
 pygame.display.set_icon(icon)
 
 # Dessin du damier
-dessine_toutes_les_cases()
+dessine_toutes_les_case()
 
 # Affichage du pion initial
 pion_pos = 0  # Position initiale du pion blanc
