@@ -144,16 +144,26 @@ while running:
             running = False
 
         btn_presse = pygame.key.get_pressed()
-        if btn_presse[pygame.K_RIGHT]:
-            bouge_droite()
-        elif btn_presse[pygame.K_LEFT]:
-            bouge_gauche()
-        elif btn_presse[pygame.K_UP]:
-            bouge_haut()
-        elif btn_presse[pygame.K_DOWN]:
-            bouge_bas()
-        elif btn_presse[pygame.K_q]:
-            running = False
+
+        # Déplacer le pion blanc vers le bas à droite (1 case)
+        #if btn_presse[pygame.K_d]:
+            #if pion_pos < (nb_colonnes - 1) and pion_ligne < (nb_lignes - 1):
+                #pion_ligne, pion_pos = bouger_pion(pion, pion_ligne, pion_pos, pion_ligne + 1, pion_pos + 1)
+
+        # Déplacer le pion blanc vers le bas à gauche (1 case)
+        #elif btn_presse[pygame.K_a]:
+            #if pion_pos > 0 and pion_ligne < (nb_lignes - 1):
+                #pion_ligne, pion_pos = bouger_pion(pion, pion_ligne, pion_pos, pion_ligne + 1, pion_pos - 1)
+
+        # Déplacer le pion noir vers le haut à gauche (1 case)
+        #elif btn_presse[pygame.K_w]:
+            #if pion_pos_noir > 0 and pion_ligne_noir > 0:
+                #pion_ligne_noir, pion_pos_noir = bouger_pion(pion_noir, pion_ligne_noir, pion_pos_noir, pion_ligne_noir - 1, pion_pos_noir - 1)
+
+        # Déplacer le pion noir vers le haut à droite (1 case)
+        #elif btn_presse[pygame.K_s]:
+           #if pion_pos_noir < (nb_colonnes - 1) and pion_ligne_noir > 0:
+                #pion_ligne_noir, pion_pos_noir = bouger_pion(pion_noir, pion_ligne_noir, pion_pos_noir, pion_ligne_noir - 1, pion_pos_noir + 1)
 
         pygame.display.update()
 pygame.quit()
