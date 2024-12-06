@@ -8,5 +8,7 @@ Purpose : Jeu de dames avec la librairie pygame
 import dame_regle as regle
 import dame_gfx as gfx
 import pygame
+gfx.start()
+
 
 pygame.quit()
