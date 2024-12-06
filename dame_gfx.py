@@ -16,6 +16,11 @@ def dessine_toutes_les_case():
             couleur = cases_blanches if (col + row) % 2 else cases_noires
             dessine_case(col, row, couleur)
 
+def afficher_plateau(plateau):
+    """Affiche le plateau dans la console"""
+    for ligne in plateau:
+        print(" ".join(str(case) for case in ligne))
+
 case_size = 80
 cases_blanches = (240, 230, 140)
 cases_noires = (160, 82, 45)
