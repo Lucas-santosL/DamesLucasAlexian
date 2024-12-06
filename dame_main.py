@@ -1,5 +1,5 @@
 """
-Name    : MA-24_Python_jeudames.py
+Name    : dame_main.py
 Auteur  : Lucas Santos & alexian Jaccard
 Date    : 14.11.24
 Version : 3.7

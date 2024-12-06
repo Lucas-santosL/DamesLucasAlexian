@@ -1,4 +1,11 @@
-import dame_regle
+"""
+Name    : dame_gfx.py
+Auteur  : Lucas Santos & alexian Jaccard
+Date    : 14.11.24
+Version : 3.7
+Purpose : Jeu de dames avec la librairie pygame
+"""
+
 import pygame
 
 def dessine_case(col, row, couleur):
