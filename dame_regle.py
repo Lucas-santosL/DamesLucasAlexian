@@ -1,13 +1,12 @@
-import dame_gfx
-import dame_main
+import dame_gfx as gfx
 import pygame
 
 
 def bouger_pion(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos):
     """Déplace le pion du damier, met à jour l'affichage"""
     # Efface l'ancienne position
-    couleur_case = cases_blanches if (pion_pos + pion_ligne) % 2 else cases_noires
-    dessine_case(pion_pos, pion_ligne, couleur_case)
+    couleur_case = gfx.cases_blanches if (pion_pos + pion_ligne) % 2 else gfx.cases_noires
+    gfx.dessine_case(pion_pos, pion_ligne, couleur_case)
 
     # Met à jour la nouvelle position
     pion_ligne = nouvelle_ligne
@@ -35,7 +34,7 @@ def bouge_droite():
     """Déplace le pion vers la droite"""
     global screen, case_size, marge_gauche, marge_haut, pion_pos, pion, nb_colonnes
     if pion_pos < (nb_colonnes - 1):
-        dessine_case(pion_pos, 0)
+        gfx.dessine_case(pion_pos, 0)
         pion_pos += 1
     screen.blit(pion, (marge_gauche + case_size * pion_pos, marge_haut))
 
@@ -44,7 +43,7 @@ def bouge_gauche():
     """Déplace le pion vers la gauche"""
     global screen, case_size, marge_gauche, marge_haut, pion_pos, pion, nb_colonnes
     if pion_pos > 0:
-        dessine_case(pion_pos, 0)
+        gfx.dessine_case(pion_pos, 0)
         pion_pos -= 1
     screen.blit(pion, (marge_gauche + case_size * pion_pos, marge_haut))
 
@@ -52,7 +51,7 @@ def bouge_haut():
     """Déplace le pion noir vers le haut"""
     global screen, case_size, marge_gauche, marge_haut, pion_pos_noir, pion_noir, nb_colonnes
     if pion_pos_noir > 0:
-        dessine_case(0, pion_pos_noir)
+        gfx.dessine_case(0, pion_pos_noir)
         pion_pos_noir -= 1
     screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
 
@@ -61,7 +60,7 @@ def bouge_bas():
     """Déplace le pion noir vers le bas"""
     global screen, case_size, marge_gauche, marge_haut, pion_pos_noir, pion_noir, nb_colonnes
     if pion_pos_noir < (nb_colonnes - 1):
-        dessine_case(0, pion_pos_noir)
+        gfx.dessine_case(0, pion_pos_noir)
         pion_pos_noir += 1
     screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
 
@@ -99,4 +98,4 @@ while running:
         #elif btn_presse[pygame.K_q]:
             #running = False
 
-        #pygame.display.update()
+        pygame.display.update()

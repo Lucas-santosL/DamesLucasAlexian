@@ -1,3 +1,4 @@
+import dame_regle
 import pygame
 
 def dessine_case(col, row, couleur):
