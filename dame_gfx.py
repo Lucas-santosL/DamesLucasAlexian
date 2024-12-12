@@ -21,6 +21,9 @@ def afficher_plateau(plateau):
     for ligne in plateau:
         print(" ".join(str(case) for case in ligne))
 
+plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+
+
 case_size = 80
 cases_blanches = (240, 230, 140)
 cases_noires = (160, 82, 45)
@@ -63,12 +66,43 @@ pion = pygame.image.load(path_to_images + "MA-24_pion.png")
 pion = pygame.transform.scale(pion, (case_size, case_size))
 screen.blit(pion, (marge_gauche, marge_haut))
 
+for compteur in range(5):
+    pion_pos_noir= 1+(compteur+1 * compteur)
+    pion_pos_noir2= (compteur+1 * compteur)
+    pion_ligne_noir = 6  # Commence en bas (ligne 9)
+    pion_ligne_noir2 = 7  # Commence en bas (ligne 9)
+    pion_ligne_noir3 = 8  # Commence en bas (ligne 9)
+    pion_ligne_noir4 = 9 # Commence en bas (ligne 9)
+    pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
+    pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir2, marge_haut + case_size * pion_ligne_noir))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir2))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir2, marge_haut + case_size * pion_ligne_noir3))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir4))
+
+for compteur in range(5):
+    pion_pos_blanc= 1+(compteur+1 * compteur)
+    pion_pos_blanc2= (compteur+1 * compteur)
+    pion_ligne_blanc = 0 # Commence en bas (ligne 9)
+    pion_ligne_blanc2 = 1  # Commence en bas (ligne 9)
+    pion_ligne_blanc3 = 2  # Commence en bas (ligne 9)
+    pion_ligne_blanc4 = 3 # Commence en bas (ligne 9)
+    pion_noir = pygame.image.load(path_to_images + "MA-24_pion.png")
+    pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc2, marge_haut + case_size * pion_ligne_blanc))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc, marge_haut + case_size * pion_ligne_blanc2))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc2, marge_haut + case_size * pion_ligne_blanc3))
+    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc, marge_haut + case_size * pion_ligne_blanc4))
+
+
 # Affichage du pion noir
-pion_pos_noir = 0  # Position initiale du pion noir
-pion_ligne_noir = 9  # Commence en bas (ligne 9)
-pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
-pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
-screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_ligne_noir))
+#pion_pos_noir = 1 # Position initiale du pion noir
+#pion_pos_noir2 = 3
+#pion_ligne_noir = 9  # Commence en bas (ligne 9)
+#pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
+#pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+#screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir))
+
 
 pygame.display.flip()
 

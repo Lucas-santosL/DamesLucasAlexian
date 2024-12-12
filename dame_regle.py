@@ -11,6 +11,8 @@ def bouger_pion(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos):
     # Met à jour la nouvelle position
     pion_ligne = nouvelle_ligne
     pion_pos = nouvelle_pos
+    pion_pos_noir = nouvelle_pos
+    pion_pos_noir2 = nouvelle_pos
     # Affiche le pion à sa nouvelle position
     screen.blit(pion, (marge_gauche + case_size * pion_pos, marge_haut + case_size * pion_ligne))
 
@@ -63,6 +65,12 @@ def bouge_bas():
         gfx.dessine_case(0, pion_pos_noir)
         pion_pos_noir += 1
     screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
+
+
+for i in range(5, 8):
+    for j in range(8):
+        if (i + j) % 2 == 1:  # Placer les pions sur les cases noires (i + j impair)
+            gfx.plateau[i][j] = 'p'  # Pion du joueur 2
 
 
 
