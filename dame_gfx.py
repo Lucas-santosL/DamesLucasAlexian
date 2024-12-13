@@ -32,8 +32,8 @@ plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
 
 
 case_size = 80
-cases_blanches = (240, 230, 140)
-cases_noires = (160, 82, 45)
+cases_blanches = (255, 255, 255)
+cases_noires = (1, 215, 88)
 
 # Marges autour du damier
 marge_gauche = 10
