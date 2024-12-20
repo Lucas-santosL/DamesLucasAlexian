@@ -28,6 +28,27 @@ def afficher_plateau(plateau):
     for ligne in plateau:
         print(" ".join(str(case) for case in ligne))
 
+def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
+    """Déplace le pion en diagonale sur le plateau et entoure la case cible."""
+    global screen, case_size, marge_gauche, marge_haut, nb_lignes, nb_colonnes
+
+    # Calcul des nouvelles coordonnées en fonction de la direction
+    if direction == 'haut_droite' and pion_pos < nb_colonnes - 1 and pion_ligne > 0:
+        nouvelle_pos = pion_pos + 1
+        nouvelle_ligne = pion_ligne - 1
+    elif direction == 'haut_gauche' and pion_pos > 0 and pion_ligne > 0:
+        nouvelle_pos = pion_pos - 1
+        nouvelle_ligne = pion_ligne - 1
+    elif direction == 'bas_droite' and pion_pos < nb_colonnes - 1 and pion_ligne < nb_lignes - 1:
+        nouvelle_pos = pion_pos + 1
+        nouvelle_ligne = pion_ligne + 1
+    elif direction == 'bas_gauche' and pion_pos > 0 and pion_ligne < nb_lignes - 1:
+        nouvelle_pos = pion_pos - 1
+        nouvelle_ligne = pion_ligne + 1
+    else:
+        return pion_ligne, pion_pos  # Si la direction est invalide ou impossible, rien ne se passe
+
+
 plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
 
 
@@ -119,6 +140,70 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
         btn_presse = pygame.key.get_pressed()
+
+        # Déplacer le pion 1 en bas à droite (diagonale vers bas droite)
+        if btn_presse[pygame.K_s]:  # 'S' pour bas droite
+            pion_ligne, pion_pos = bouger_pion_diagonal(pion, pion_ligne, pion_pos, 'bas_droite', plateau)
+
+        # Déplacer le pion 1 en haut à gauche (diagonale vers haut gauche)
+        elif btn_presse[pygame.K_w]:  # 'W' pour haut gauche
+            pion_ligne, pion_pos = bouger_pion_diagonal(pion, pion_ligne, pion_pos, 'haut_gauche', plateau)
+
+        pygame.display.update()
+
+import pygame
+import dame_gfx as gfx  # Assure-toi d'avoir importé ton module graphique
+
+
+def entourer_case(col, row):
+    """Entoure la case où le pion peut aller."""
+    pygame.draw.rect(screen, (255, 0, 0),  # Rouge pour entourer la case
+                     (marge_gauche + col * case_size,
+                      marge_haut + row * case_size,
+                      case_size,
+                      case_size), 5)  # Bordure de 5 pixels
+
+def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
+    """Déplace le pion en diagonale sur le plateau et entoure la case cible."""
+    global screen, case_size, marge_gauche, marge_haut, nb_lignes, nb_colonnes
+
+    # Calcul des nouvelles coordonnées en fonction de la direction
+    if direction == 'haut_droite' and pion_pos < nb_colonnes - 1 and pion_ligne > 0:
+        nouvelle_pos = pion_pos + 1
+        nouvelle_ligne = pion_ligne - 1
+    elif direction == 'haut_gauche' and pion_pos > 0 and pion_ligne > 0:
+        nouvelle_pos = pion_pos - 1
+        nouvelle_ligne = pion_ligne - 1
+    elif direction == 'bas_droite' and pion_pos < nb_colonnes - 1 and pion_ligne < nb_lignes - 1:
+        nouvelle_pos = pion_pos + 1
+        nouvelle_ligne = pion_ligne + 1
+    elif direction == 'bas_gauche' and pion_pos > 0 and pion_ligne < nb_lignes - 1:
+        nouvelle_pos = pion_pos - 1
+        nouvelle_ligne = pion_ligne + 1
+    else:
+        return pion_ligne, pion_pos  # Si la direction est invalide ou impossible, rien ne se passe
+
+    # Entourer la case cible où le pion peut aller
+    entourer_case(nouvelle_pos, nouvelle_ligne)
+
+    # Vérification si la case de destination est vide
+    if plateau[nouvelle_ligne][nouvelle_pos] == 0:  # Si la case est vide
+        # Effacer l'ancienne position
+        couleur_case = gfx.cases_blanches if (pion_pos + pion_ligne) % 2 else gfx.cases_noires
+        gfx.dessine_case(pion_pos, pion_ligne, couleur_case)
+
+        # Mettre à jour le plateau
+        plateau[nouvelle_ligne][nouvelle_pos] = plateau[pion_ligne][pion_pos]  # Déplacer le pion
+        plateau[pion_ligne][pion_pos] = 0  # Vider la case d'origine
+
+        # Redessiner le pion à sa nouvelle position
+        gfx.bouger_pion_gfx(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos)
+
+        return nouvelle_ligne, nouvelle_pos
+    else:
+        return pion_ligne, pion_pos  # Si la case est occupée, ne rien faire
+
 
 pygame.quit()
