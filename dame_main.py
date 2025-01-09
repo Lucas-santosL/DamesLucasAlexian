@@ -1,4 +1,4 @@
-"""
+"""s
 Name    : dame_main.py
 Auteur  : Lucas Santos & alexian Jaccard
 Date    : 14.11.24
@@ -11,8 +11,6 @@ import pygame
 
 # Initialisation de Pygame
 pygame.init()
-
-
 
 
 pygame.quit()
