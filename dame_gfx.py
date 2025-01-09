@@ -28,29 +28,8 @@ def afficher_plateau(plateau):
     for ligne in plateau:
         print(" ".join(str(case) for case in ligne))
 
-def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
-    """Déplace le pion en diagonale sur le plateau et entoure la case cible."""
-    global screen, case_size, marge_gauche, marge_haut, nb_lignes, nb_colonnes
-
-    # Calcul des nouvelles coordonnées en fonction de la direction
-    if direction == 'haut_droite' and pion_pos < nb_colonnes - 1 and pion_ligne > 0:
-        nouvelle_pos = pion_pos + 1
-        nouvelle_ligne = pion_ligne - 1
-    elif direction == 'haut_gauche' and pion_pos > 0 and pion_ligne > 0:
-        nouvelle_pos = pion_pos - 1
-        nouvelle_ligne = pion_ligne - 1
-    elif direction == 'bas_droite' and pion_pos < nb_colonnes - 1 and pion_ligne < nb_lignes - 1:
-        nouvelle_pos = pion_pos + 1
-        nouvelle_ligne = pion_ligne + 1
-    elif direction == 'bas_gauche' and pion_pos > 0 and pion_ligne < nb_lignes - 1:
-        nouvelle_pos = pion_pos - 1
-        nouvelle_ligne = pion_ligne + 1
-    else:
-        return pion_ligne, pion_pos  # Si la direction est invalide ou impossible, rien ne se passe
-
 
 plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
-
 
 case_size = 80
 cases_blanches = (255, 255, 255)
@@ -122,16 +101,6 @@ for compteur in range(5):
     screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc2, marge_haut + case_size * pion_ligne_blanc3))
     screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc, marge_haut + case_size * pion_ligne_blanc4))
 
-
-# Affichage du pion noir
-#pion_pos_noir = 1 # Position initiale du pion noir
-#pion_pos_noir2 = 3
-#pion_ligne_noir = 9  # Commence en bas (ligne 9)
-#pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
-#pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
-#screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir))
-
-
 pygame.display.flip()
 
 # Boucle principale
@@ -140,18 +109,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            # _init()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            print("Bouton de souris pressé")
+            (bouton1, bouton2, bouton3) = pygame.mouse.get_pressed()
+            (souris_x, souris_y) = pygame.mouse.get_pos()
+            if bouton1:
+                print("-> bouton1 pressé (x :", souris_x, ", y : ", souris_y, ")")
+            if bouton2:
+                print("-> bouton2 pressé (x :", souris_x, ", y : ", souris_y, ")")
+            if bouton3:
+                print("-> bouton3 pressé (x :", souris_x, ", y : ", souris_y, ")")
 
-        btn_presse = pygame.key.get_pressed()
 
-        # Déplacer le pion 1 en bas à droite (diagonale vers bas droite)
-        if btn_presse[pygame.K_s]:  # 'S' pour bas droite
-            pion_ligne, pion_pos = bouger_pion_diagonal(pion, pion_ligne, pion_pos, 'bas_droite', plateau)
-
-        # Déplacer le pion 1 en haut à gauche (diagonale vers haut gauche)
-        elif btn_presse[pygame.K_w]:  # 'W' pour haut gauche
-            pion_ligne, pion_pos = bouger_pion_diagonal(pion, pion_ligne, pion_pos, 'haut_gauche', plateau)
-
-        pygame.display.update()
 
 import pygame
 import dame_gfx as gfx  # Assure-toi d'avoir importé ton module graphique
@@ -199,7 +169,7 @@ def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
         plateau[pion_ligne][pion_pos] = 0  # Vider la case d'origine
 
         # Redessiner le pion à sa nouvelle position
-        gfx.bouger_pion_gfx(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos)
+        gfx.bouger_pion_(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos)
 
         return nouvelle_ligne, nouvelle_pos
     else:

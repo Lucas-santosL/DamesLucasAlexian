@@ -12,5 +12,4 @@ import pygame
 # Initialisation de Pygame
 pygame.init()
 
-
 pygame.quit()
