@@ -84,12 +84,12 @@ for i in range(5, 8):
 
 # Boucle principale
 running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+#while running:
+    #for event in pygame.event.get():
+        #if event.type == pygame.QUIT:
+            #running = False
 
-        btn_presse = pygame.key.get_pressed()
+        #btn_presse = pygame.key.get_pressed()
 
         # Déplacer le pion blanc vers le bas à droite (1 case)
         #if btn_presse[pygame.K_d]:
@@ -114,5 +114,5 @@ while running:
         #elif btn_presse[pygame.K_q]:
             #running = False
 
-        pygame.display.update()
+        #pygame.display.update()
 

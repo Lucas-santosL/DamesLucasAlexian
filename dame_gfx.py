@@ -7,6 +7,8 @@ Purpose : Jeu de dames avec la librairie pygame
 """
 
 import pygame
+import dame_gfx as gfx  # Assure-toi d'avoir importé ton module graphique
+
 
 def dessine_case(col, row, couleur):
     """Dessine une case du damier à la position (col, row) avec la couleur spécifiée"""
@@ -27,6 +29,9 @@ def afficher_plateau(plateau):
     """Affiche le plateau dans la console"""
     for ligne in plateau:
         print(" ".join(str(case) for case in ligne))
+
+
+
 
 
 plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
@@ -103,6 +108,15 @@ for compteur in range(5):
 
 pygame.display.flip()
 
+def entourer_case(screen, col, row):
+    """Entoure la case où le pion peut aller."""
+    pygame.draw.rect(screen, (255, 0, 154),  # Rouge pour entourer la case
+                     (marge_gauche + col * case_size,
+                      marge_haut + row * case_size,
+                      case_size,
+                      case_size), 5)  # Bordure de 5 pixels
+    pygame.display.flip()
+
 # Boucle principale
 running = True
 while running:
@@ -116,6 +130,7 @@ while running:
             (souris_x, souris_y) = pygame.mouse.get_pos()
             if bouton1:
                 print("-> bouton1 pressé (x :", souris_x, ", y : ", souris_y, ")")
+                entourer_case(screen,2,1)
             if bouton2:
                 print("-> bouton2 pressé (x :", souris_x, ", y : ", souris_y, ")")
             if bouton3:
@@ -123,17 +138,6 @@ while running:
 
 
 
-import pygame
-import dame_gfx as gfx  # Assure-toi d'avoir importé ton module graphique
-
-
-def entourer_case(col, row):
-    """Entoure la case où le pion peut aller."""
-    pygame.draw.rect(screen, (255, 0, 0),  # Rouge pour entourer la case
-                     (marge_gauche + col * case_size,
-                      marge_haut + row * case_size,
-                      case_size,
-                      case_size), 5)  # Bordure de 5 pixels
 
 def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
     """Déplace le pion en diagonale sur le plateau et entoure la case cible."""
