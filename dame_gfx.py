@@ -118,6 +118,18 @@ def calculer_cases_accessibles(row, col):
         nr, nc = row + dr, col + dc
         if 0 <= nr < nb_lignes and 0 <= nc < nb_colonnes and plateau[nr][nc] == 0:
             cases_accessibles.append((nr, nc))
+
+    # Vérification des captures possibles
+    for d in directions:
+        dr, dc = d
+        nr, nc = row + dr, col + dc
+        # Vérification d'un pion adverse à capturer
+        if 0 <= nr < nb_lignes and 0 <= nc < nb_colonnes:
+            if plateau[nr][nc] != plateau[row][col] and plateau[nr][nc] != 0:
+                # Vérifier la case après l'adversaire
+                nr2, nc2 = nr + dr, nc + dc
+                if 0 <= nr2 < nb_lignes and 0 <= nc2 < nb_colonnes and plateau[nr2][nc2] == 0:
+                    cases_accessibles.append((nr2, nc2))  # Ajouter la case après la capture
     return cases_accessibles
 
 
@@ -130,6 +142,13 @@ def deplacer_pion(row, col):
         # Déplacer le pion sur le plateau
         plateau[row][col] = plateau[pion_selectionne[0]][pion_selectionne[1]]
         plateau[pion_selectionne[0]][pion_selectionne[1]] = 0
+        # Vérifier si un pion a été mangé et le retirer
+        if abs(row - pion_selectionne[0]) > 1 or abs(col - pion_selectionne[1]) > 1:
+            # Calculer la position du pion mangé
+            mid_row = (row + pion_selectionne[0]) // 2
+            mid_col = (col + pion_selectionne[1]) // 2
+            plateau[mid_row][mid_col] = 0  # Enlever le pion mangé
+
         pion_selectionne = None  # Désélectionner le pion
         cases_accessibles = []  # Effacer les cases accessibles
 
