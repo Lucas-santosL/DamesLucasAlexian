@@ -82,12 +82,6 @@ for i in range(5, 8):
 
 
 
-# Boucle principale
-running = True
-#while running:
-    #for event in pygame.event.get():
-        #if event.type == pygame.QUIT:
-            #running = False
 
         #btn_presse = pygame.key.get_pressed()
 

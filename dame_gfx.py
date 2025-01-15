@@ -1,57 +1,22 @@
-"""
-Name    : dame_gfx.py
-Auteur  : Lucas Santos & alexian Jaccard
-Date    : 14.11.24
-Version : 3.7
-Purpose : Jeu de dames avec la librairie pygame
-"""
-
 import pygame
-import dame_gfx as gfx  # Assure-toi d'avoir importé ton module graphique
 
+# Initialisation de Pygame
+pygame.init()
 
-def dessine_case(col, row, couleur):
-    """Dessine une case du damier à la position (col, row) avec la couleur spécifiée"""
-    pygame.draw.rect(screen, couleur,
-                     (marge_gauche + col * case_size,
-                      marge_haut + row * case_size,
-                      case_size,
-                      case_size), 0)
-
-def dessine_toutes_les_case():
-    """Redessine toutes les cases du plateau"""
-    for row in range(nb_lignes):
-        for col in range(nb_colonnes):
-            couleur = cases_blanches if (col + row) % 2 else cases_noires
-            dessine_case(col, row, couleur)
-
-def afficher_plateau(plateau):
-    """Affiche le plateau dans la console"""
-    for ligne in plateau:
-        print(" ".join(str(case) for case in ligne))
-
-
-
-
-
-plateau = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
-
+# Définition des couleurs
 case_size = 80
 cases_blanches = (255, 255, 255)
 cases_noires = (1, 215, 88)
 
 # Marges autour du damier
 marge_gauche = 10
-marge_droite = 10
 marge_haut = 10
+marge_droite = 10
 marge_bas = 10
 
-# Initialisation de Pygame
-pygame.init()
-
 # Taille du damier
-nb_lignes = 10  # Nombre de lignes
-nb_colonnes = 10  # Nombre de colonnes
+nb_lignes = 10
+nb_colonnes = 10
 
 # Taille de la fenêtre
 window_size = (case_size * nb_colonnes + marge_gauche + marge_droite,
@@ -64,52 +29,52 @@ pygame.display.set_caption("Jeu de dames")
 screen.fill(window_color)
 
 # Icone de la fenêtre
-path_to_images = "pictures\\pictures\\"
+path_to_images = "pictures\\pictures\\"  # Assure-toi que le chemin est correct
 icon = pygame.image.load(path_to_images + "International_draughts.png")
 pygame.display.set_icon(icon)
 
-# Dessin du damier
-dessine_toutes_les_case()
+# Définir le plateau initial (0 pour vide, 1 pour pion blanc, 2 pour pion noir)
+plateau = [[0] * nb_colonnes for _ in range(nb_lignes)]
 
-# Affichage du pion initial
-pion_pos = 0  # Position initiale du pion blanc
-pion_ligne = 0
-pion = pygame.image.load(path_to_images + "MA-24_pion.png")
-pion = pygame.transform.scale(pion, (case_size, case_size))
-screen.blit(pion, (marge_gauche, marge_haut))
+# Placer les pions blancs sur les 4 premières lignes (lignes 0 à 3)
+for i in range(4):  # Lignes 0, 1, 2, 3
+    for j in range(nb_colonnes):
+        if (i + j) % 2 == 1:  # Placer sur les cases vertes
+            plateau[i][j] = 1  # Pion blanc
 
-for compteur in range(5):
-    pion_pos_noir= 1+(compteur+1 * compteur)
-    pion_pos_noir2= (compteur+1 * compteur)
-    pion_ligne_noir = 6  # Commence en bas (ligne 9)
-    pion_ligne_noir2 = 7  # Commence en bas (ligne 9)
-    pion_ligne_noir3 = 8  # Commence en bas (ligne 9)
-    pion_ligne_noir4 = 9 # Commence en bas (ligne 9)
-    pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
-    pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir2, marge_haut + case_size * pion_ligne_noir))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir2))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir2, marge_haut + case_size * pion_ligne_noir3))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_noir, marge_haut + case_size * pion_ligne_noir4))
+# Placer les pions noirs sur les 4 dernières lignes (lignes 6 à 9)
+for i in range(6, 10):  # Lignes 6, 7, 8, 9
+    for j in range(nb_colonnes):
+        if (i + j) % 2 == 1:  # Placer sur les cases vertes
+            plateau[i][j] = 2  # Pion noir
 
-for compteur in range(5):
-    pion_pos_blanc= 1+(compteur+1 * compteur)
-    pion_pos_blanc2= (compteur+1 * compteur)
-    pion_ligne_blanc = 0 # Commence en bas (ligne 9)
-    pion_ligne_blanc2 = 1  # Commence en bas (ligne 9)
-    pion_ligne_blanc3 = 2  # Commence en bas (ligne 9)
-    pion_ligne_blanc4 = 3 # Commence en bas (ligne 9)
-    pion_noir = pygame.image.load(path_to_images + "MA-24_pion.png")
-    pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc2, marge_haut + case_size * pion_ligne_blanc))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc, marge_haut + case_size * pion_ligne_blanc2))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc2, marge_haut + case_size * pion_ligne_blanc3))
-    screen.blit(pion_noir, (marge_gauche + case_size * pion_pos_blanc, marge_haut + case_size * pion_ligne_blanc4))
+# Charger les images des pions
+pion_blanc = pygame.image.load(path_to_images + "MA-24_pion.png")
+pion_blanc = pygame.transform.scale(pion_blanc, (case_size, case_size))
 
-pygame.display.flip()
+pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
+pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
 
-def entourer_case(screen, col, row):
-    """Entoure la case où le pion peut aller."""
+
+# Fonction pour dessiner une case
+def dessine_case(col, row, couleur):
+    pygame.draw.rect(screen, couleur,
+                     (marge_gauche + col * case_size,
+                      marge_haut + row * case_size,
+                      case_size,
+                      case_size), 0)
+
+
+# Fonction pour dessiner toutes les cases du damier
+def dessine_toutes_les_cases():
+    for row in range(nb_lignes):
+        for col in range(nb_colonnes):
+            couleur = cases_blanches if (col + row) % 2 == 0 else cases_noires
+            dessine_case(col, row, couleur)
+
+
+# Fonction pour entourer une case
+def entourer_case(col, row):
     pygame.draw.rect(screen, (255, 0, 154),  # Rouge pour entourer la case
                      (marge_gauche + col * case_size,
                       marge_haut + row * case_size,
@@ -117,67 +82,91 @@ def entourer_case(screen, col, row):
                       case_size), 5)  # Bordure de 5 pixels
     pygame.display.flip()
 
+
+# Dessiner le damier
+dessine_toutes_les_cases()
+
+# Affichage des pions (blancs et noirs)
+for ligne in range(nb_lignes):
+    for col in range(nb_colonnes):
+        if plateau[ligne][col] == 1:  # Pion blanc
+            screen.blit(pion_blanc, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+        elif plateau[ligne][col] == 2:  # Pion noir
+            screen.blit(pion_noir, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+
+pygame.display.flip()
+
+# Variables pour gérer la sélection et le mouvement
+pion_selectionne = None
+cases_accessibles = []
+
+
+# Calculer les cases accessibles pour un pion donné
+def calculer_cases_accessibles(row, col):
+    cases_accessibles = []
+    if plateau[row][col] == 1:  # Pion blanc
+        directions = [(1, -1), (1, 1)]  # Bas gauche, Bas droite
+    elif plateau[row][col] == 2:  # Pion noir
+        directions = [(-1, -1), (-1, 1)]  # Haut gauche, Haut droite
+
+    # Vérification des cases accessibles devant le pion
+    for d in directions:
+        dr, dc = d
+        nr, nc = row + dr, col + dc
+        if 0 <= nr < nb_lignes and 0 <= nc < nb_colonnes and plateau[nr][nc] == 0:
+            cases_accessibles.append((nr, nc))
+    return cases_accessibles
+
+
 # Boucle principale
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-            # _init()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print("Bouton de souris pressé")
-            (bouton1, bouton2, bouton3) = pygame.mouse.get_pressed()
-            (souris_x, souris_y) = pygame.mouse.get_pos()
-            if bouton1:
-                print("-> bouton1 pressé (x :", souris_x, ", y : ", souris_y, ")")
-                entourer_case(screen,2,1)
-            if bouton2:
-                print("-> bouton2 pressé (x :", souris_x, ", y : ", souris_y, ")")
-            if bouton3:
-                print("-> bouton3 pressé (x :", souris_x, ", y : ", souris_y, ")")
+            souris_x, souris_y = pygame.mouse.get_pos()
+            col = (souris_x - marge_gauche) // case_size
+            row = (souris_y - marge_haut) // case_size
 
+            # Si on a sélectionné un pion blanc ou noir
+            if plateau[row][col] == 1 or plateau[row][col] == 2:
+                pion_selectionne = (row, col)
+                cases_accessibles = calculer_cases_accessibles(row, col)
+                # Effacer les anciennes cases accessibles
+                dessine_toutes_les_cases()
+                # Redessiner les pions
+                for ligne in range(nb_lignes):
+                    for col in range(nb_colonnes):
+                        if plateau[ligne][col] == 1:
+                            screen.blit(pion_blanc, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+                        elif plateau[ligne][col] == 2:
+                            screen.blit(pion_noir, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+                pygame.display.flip()
 
+                # Entourer les cases accessibles devant le pion
+                for case in cases_accessibles:
+                    entourer_case(case[1], case[0])
 
-
-def bouger_pion_diagonal(pion, pion_ligne, pion_pos, direction, plateau):
-    """Déplace le pion en diagonale sur le plateau et entoure la case cible."""
-    global screen, case_size, marge_gauche, marge_haut, nb_lignes, nb_colonnes
-
-    # Calcul des nouvelles coordonnées en fonction de la direction
-    if direction == 'haut_droite' and pion_pos < nb_colonnes - 1 and pion_ligne > 0:
-        nouvelle_pos = pion_pos + 1
-        nouvelle_ligne = pion_ligne - 1
-    elif direction == 'haut_gauche' and pion_pos > 0 and pion_ligne > 0:
-        nouvelle_pos = pion_pos - 1
-        nouvelle_ligne = pion_ligne - 1
-    elif direction == 'bas_droite' and pion_pos < nb_colonnes - 1 and pion_ligne < nb_lignes - 1:
-        nouvelle_pos = pion_pos + 1
-        nouvelle_ligne = pion_ligne + 1
-    elif direction == 'bas_gauche' and pion_pos > 0 and pion_ligne < nb_lignes - 1:
-        nouvelle_pos = pion_pos - 1
-        nouvelle_ligne = pion_ligne + 1
-    else:
-        return pion_ligne, pion_pos  # Si la direction est invalide ou impossible, rien ne se passe
-
-    # Entourer la case cible où le pion peut aller
-    entourer_case(nouvelle_pos, nouvelle_ligne)
-
-    # Vérification si la case de destination est vide
-    if plateau[nouvelle_ligne][nouvelle_pos] == 0:  # Si la case est vide
-        # Effacer l'ancienne position
-        couleur_case = gfx.cases_blanches if (pion_pos + pion_ligne) % 2 else gfx.cases_noires
-        gfx.dessine_case(pion_pos, pion_ligne, couleur_case)
-
-        # Mettre à jour le plateau
-        plateau[nouvelle_ligne][nouvelle_pos] = plateau[pion_ligne][pion_pos]  # Déplacer le pion
-        plateau[pion_ligne][pion_pos] = 0  # Vider la case d'origine
-
-        # Redessiner le pion à sa nouvelle position
-        gfx.bouger_pion_(pion, pion_ligne, pion_pos, nouvelle_ligne, nouvelle_pos)
-
-        return nouvelle_ligne, nouvelle_pos
-    else:
-        return pion_ligne, pion_pos  # Si la case est occupée, ne rien faire
-
+            # Si on clique sur une case accessible
+            if pion_selectionne:
+                for case in cases_accessibles:
+                    if (row, col) == case:
+                        # Déplacer le pion
+                        plateau[row][col] = plateau[pion_selectionne[0]][pion_selectionne[1]]  # Déplacer sur le plateau
+                        plateau[pion_selectionne[0]][pion_selectionne[1]] = 0  # Vider l'ancienne case
+                        pion_selectionne = None  # Désélectionner le pion
+                        cases_accessibles = []  # Effacer les cases accessibles
+                        dessine_toutes_les_cases()  # Redessiner les cases
+                        # Redessiner les pions après le mouvement
+                        for ligne in range(nb_lignes):
+                            for col in range(nb_colonnes):
+                                if plateau[ligne][col] == 1:
+                                    screen.blit(pion_blanc,
+                                                (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+                                elif plateau[ligne][col] == 2:
+                                    screen.blit(pion_noir,
+                                                (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+                        pygame.display.flip()
 
 pygame.quit()
