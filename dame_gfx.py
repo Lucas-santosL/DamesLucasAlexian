@@ -112,13 +112,6 @@ def calculer_cases_accessibles(row, col):
     elif plateau[row][col] == 2:  # Pion noir
         directions = [(-1, -1), (-1, 1)]  # Haut gauche, Haut droite
 
-    # Vérification des cases accessibles devant le pion
-    for d in directions:
-        dr, dc = d
-        nr, nc = row + dr, col + dc
-        if 0 <= nr < nb_lignes and 0 <= nc < nb_colonnes and plateau[nr][nc] == 0:
-            cases_accessibles.append((nr, nc))
-
     # Vérification des captures possibles
     for d in directions:
         dr, dc = d
@@ -130,6 +123,15 @@ def calculer_cases_accessibles(row, col):
                 nr2, nc2 = nr + dr, nc + dc
                 if 0 <= nr2 < nb_lignes and 0 <= nc2 < nb_colonnes and plateau[nr2][nc2] == 0:
                     cases_accessibles.append((nr2, nc2))  # Ajouter la case après la capture
+
+    # Si aucune capture n'est possible, vérifier les déplacements normaux
+    if not cases_accessibles:
+        for d in directions:
+            dr, dc = d
+            nr, nc = row + dr, col + dc
+            if 0 <= nr < nb_lignes and 0 <= nc < nb_colonnes and plateau[nr][nc] == 0:
+                cases_accessibles.append((nr, nc))
+
     return cases_accessibles
 
 
@@ -201,6 +203,15 @@ while running:
 
             # Si on clique sur une case accessible
             if pion_selectionne:
-                deplacer_pion(row, col)
+                # Vérifier s'il y a une capture obligatoire
+                capture_possible = any(abs(row - pion_selectionne[0]) > 1 or abs(col - pion_selectionne[1]) > 1 for (row, col) in cases_accessibles)
+
+                if capture_possible:
+                    # Si une capture est obligatoire, ne permettre que les cases de capture
+                    if (row, col) in cases_accessibles and abs(row - pion_selectionne[0]) > 1:
+                        deplacer_pion(row, col)
+                elif (row, col) in cases_accessibles:
+                    # Si aucune capture n'est obligatoire, on peut déplacer normalement
+                    deplacer_pion(row, col)
 
 pygame.quit()
