@@ -100,6 +100,9 @@ pygame.display.flip()
 pion_selectionne = None
 cases_accessibles = []
 
+# Variable pour gérer le tour du joueur
+tour_joueur = 1  # 1 pour le joueur blanc, 2 pour le joueur noir
+
 
 # Calculer les cases accessibles pour un pion donné
 def calculer_cases_accessibles(row, col):
@@ -118,6 +121,35 @@ def calculer_cases_accessibles(row, col):
     return cases_accessibles
 
 
+# Fonction pour déplacer le pion
+def deplacer_pion(row, col):
+    global plateau, pion_selectionne, cases_accessibles, tour_joueur
+
+    # Vérifier si le mouvement est valide
+    if (row, col) in cases_accessibles:
+        # Déplacer le pion sur le plateau
+        plateau[row][col] = plateau[pion_selectionne[0]][pion_selectionne[1]]
+        plateau[pion_selectionne[0]][pion_selectionne[1]] = 0
+        pion_selectionne = None  # Désélectionner le pion
+        cases_accessibles = []  # Effacer les cases accessibles
+
+        # Redessiner le damier et les pions
+        dessine_toutes_les_cases()
+        for ligne in range(nb_lignes):
+            for col in range(nb_colonnes):
+                if plateau[ligne][col] == 1:
+                    screen.blit(pion_blanc, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+                elif plateau[ligne][col] == 2:
+                    screen.blit(pion_noir, (marge_gauche + case_size * col, marge_haut + case_size * ligne))
+        pygame.display.flip()
+
+        # Passer au tour suivant
+        if tour_joueur == 1:
+            tour_joueur = 2  # C'est maintenant au tour du joueur noir
+        else:
+            tour_joueur = 1  # C'est maintenant au tour du joueur blanc
+
+
 # Boucle principale
 running = True
 while running:
@@ -129,8 +161,8 @@ while running:
             col = (souris_x - marge_gauche) // case_size
             row = (souris_y - marge_haut) // case_size
 
-            # Si on a sélectionné un pion blanc ou noir
-            if plateau[row][col] == 1 or plateau[row][col] == 2:
+            # Si on a sélectionné un pion et c'est le tour du joueur
+            if plateau[row][col] == tour_joueur:  # Vérifier si le joueur peut déplacer son pion
                 pion_selectionne = (row, col)
                 cases_accessibles = calculer_cases_accessibles(row, col)
                 # Effacer les anciennes cases accessibles
@@ -150,23 +182,6 @@ while running:
 
             # Si on clique sur une case accessible
             if pion_selectionne:
-                for case in cases_accessibles:
-                    if (row, col) == case:
-                        # Déplacer le pion
-                        plateau[row][col] = plateau[pion_selectionne[0]][pion_selectionne[1]]  # Déplacer sur le plateau
-                        plateau[pion_selectionne[0]][pion_selectionne[1]] = 0  # Vider l'ancienne case
-                        pion_selectionne = None  # Désélectionner le pion
-                        cases_accessibles = []  # Effacer les cases accessibles
-                        dessine_toutes_les_cases()  # Redessiner les cases
-                        # Redessiner les pions après le mouvement
-                        for ligne in range(nb_lignes):
-                            for col in range(nb_colonnes):
-                                if plateau[ligne][col] == 1:
-                                    screen.blit(pion_blanc,
-                                                (marge_gauche + case_size * col, marge_haut + case_size * ligne))
-                                elif plateau[ligne][col] == 2:
-                                    screen.blit(pion_noir,
-                                                (marge_gauche + case_size * col, marge_haut + case_size * ligne))
-                        pygame.display.flip()
+                deplacer_pion(row, col)
 
 pygame.quit()
