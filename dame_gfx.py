@@ -1,3 +1,10 @@
+"""
+Name    : dame_gfx.py
+Auteur  : Lucas Santos & alexian Jaccard
+Date    : 14.11.24
+Version : 3.7
+Purpose : Jeu de dames avec la librairie pygame
+"""
 import pygame
 
 # Initialisation de Pygame
@@ -54,6 +61,15 @@ pion_blanc = pygame.transform.scale(pion_blanc, (case_size, case_size))
 
 pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
 pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+
+dame_blanche = pygame.image.load(path_to_images + ".png")
+dame_blanche = pygame.transform.scale(dame_blanche, (case_size, case_size))
+
+dame_noir = pygame.image.load(path_to_images + ".png")
+dame_noir = pygame.transform.scale(dame_noir, (case_size, case_size))
+
+
+
 
 
 # Fonction pour dessiner une case
