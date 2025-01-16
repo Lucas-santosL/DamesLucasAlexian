@@ -5,77 +5,78 @@ Date    : 14.11.24
 Version : 3.7
 Purpose : Jeu de dames avec la librairie pygame
 """
-import pygame
+import pygame  # Importation de la bibliothèque pygame pour la gestion des jeux 2D
 
 # Initialisation de Pygame
-pygame.init()
+pygame.init()  # Initialisation de tous les modules de pygame
 
 # Définition des couleurs
-case_size = 80
-cases_blanches = (255, 255, 255)
-cases_noires = (1, 215, 88)
+case_size = 80  # Taille d'une case du damier en pixels
+
+cases_blanches = (255, 255, 255)  # Couleur des cases blanches du damier (blanc)
+cases_noires = (1, 215, 88)  # Couleur des cases noires du damier (vert)
 
 # Marges autour du damier
-marge_gauche = 10
-marge_haut = 10
-marge_droite = 10
-marge_bas = 10
+marge_gauche = 10  # Marge sur la gauche du damier pour l'interface
+marge_haut = 10  # Marge en haut du damier
+marge_droite = 10  # Marge sur la droite du damier
+marge_bas = 10  # Marge en bas du damier
 
 # Taille du damier
-nb_lignes = 10
-nb_colonnes = 10
+nb_lignes = 10  # Nombre de lignes sur le plateau du jeu
+nb_colonnes = 10  # Nombre de colonnes sur le plateau du jeu
 
 # Taille de la fenêtre
-window_size = (case_size * nb_colonnes + marge_gauche + marge_droite,
-               case_size * nb_lignes + marge_haut + marge_bas)
-window_color = (255, 255, 255)
+window_size = (case_size * nb_colonnes + marge_gauche + marge_droite,  # Taille de la fenêtre (largeur, hauteur)
+               case_size * nb_lignes + marge_haut + marge_bas)  # Calculée avec la taille des cases et marges
+window_color = (255, 255, 255)  # Couleur de fond de la fenêtre
 
 # Création de la fenêtre
-screen = pygame.display.set_mode(window_size)
-pygame.display.set_caption("Jeu de dames")
-screen.fill(window_color)
+screen = pygame.display.set_mode(window_size)  # Création de la fenêtre pygame avec la taille définie
+pygame.display.set_caption("Jeu de dames")  # Définir le titre de la fenêtre
+screen.fill(window_color)  # Remplissage de l'arrière-plan de la fenêtre avec la couleur blanche
 
 # Icone de la fenêtre
-path_to_images = "pictures\\pictures\\"  # Assure-toi que le chemin est correct
-icon = pygame.image.load(path_to_images + "International_draughts.png")
-pygame.display.set_icon(icon)
+path_to_images = "pictures\\pictures\\"  # Chemin vers le dossier contenant les images utilisées
+icon = pygame.image.load(path_to_images + "International_draughts.png")  # Chargement de l'icône de la fenêtre
+pygame.display.set_icon(icon)  # Définir l'icône de la fenêtre
 
 # Définir le plateau initial (0 pour vide, 1 pour pion blanc, 2 pour pion noir)
-plateau = [[0] * nb_colonnes for _ in range(nb_lignes)]
+plateau = [[0] * nb_colonnes for _ in range(nb_lignes)]  # Initialisation du damier avec des cases vides
 
 # Placer les pions blancs sur les 4 premières lignes (lignes 0 à 3)
 for i in range(4):  # Lignes 0, 1, 2, 3
     for j in range(nb_colonnes):
-        if (i + j) % 2 == 1:  # Placer sur les cases vertes
-            plateau[i][j] = 1  # Pion blanc
+        if (i + j) % 2 == 1:  # Placer un pion uniquement sur les cases noires
+            plateau[i][j] = 1  # Initialisation des pions blancs
 
 # Placer les pions noirs sur les 4 dernières lignes (lignes 6 à 9)
 for i in range(6, 10):  # Lignes 6, 7, 8, 9
     for j in range(nb_colonnes):
-        if (i + j) % 2 == 1:  # Placer sur les cases vertes
-            plateau[i][j] = 2  # Pion noir
+        if (i + j) % 2 == 1:  # Placer un pion uniquement sur les cases noires
+            plateau[i][j] = 2  # Initialisation des pions noirs
 
 # Charger les images des pions
-pion_blanc = pygame.image.load(path_to_images + "MA-24_pion.png")
-pion_blanc = pygame.transform.scale(pion_blanc, (case_size, case_size))
+pion_blanc = pygame.image.load(path_to_images + "MA-24_pion.png")  # Charger l'image du pion blanc
+pion_blanc = pygame.transform.scale(pion_blanc, (case_size, case_size))  # Mise à l'échelle à la taille de la case
 
-pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")
-pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))
+pion_noir = pygame.image.load(path_to_images + "MA-24_pion_noir.png")  # Charger l'image du pion noir
+pion_noir = pygame.transform.scale(pion_noir, (case_size, case_size))  # Mise à l'échelle à la taille de la case
 
-dame_blanche = pygame.image.load(path_to_images + "MA-24_dame_blanche.png")
-dame_blanche = pygame.transform.scale(dame_blanche, (case_size, case_size))
+dame_blanche = pygame.image.load(path_to_images + "MA-24_dame_blanche.png")  # Charger l'image de la dame blanche
+dame_blanche = pygame.transform.scale(dame_blanche, (case_size, case_size))  # Mise à l'échelle pour la case
 
-dame_noir = pygame.image.load(path_to_images + "MA-24_dame_noire.png")
-dame_noir = pygame.transform.scale(dame_noir, (case_size, case_size))
+dame_noir = pygame.image.load(path_to_images + "MA-24_dame_noire.png")  # Charger l'image de la dame noire
+dame_noir = pygame.transform.scale(dame_noir, (case_size, case_size))  # Mise à l'échelle pour la case
 
 
 
 
 
 # Fonction pour dessiner une case
-def dessine_case(col, row, couleur):
+def dessine_case(col, row, couleur):  # Dessine une seule case sur le damier avec la couleur donnée
     pygame.draw.rect(screen, couleur,
-                     (marge_gauche + col * case_size,
+                     (marge_gauche + col * case_size,  # Calcul des coordonnées en pixels de la case
                       marge_haut + row * case_size,
                       case_size,
                       case_size), 0)
