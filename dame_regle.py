@@ -98,6 +98,26 @@ def bouge_bas():
     screen.blit(pion_noir, (marge_gauche, marge_haut + case_size * pion_pos_noir))
 
 
+def transformer_en_dame(pion, ligne, col, plateau):
+    """Transforme le pion en dame lorsqu'il atteint le bord."""
+    if ligne == 0 or ligne == 7:  # Si le pion atteint le bord du plateau
+        plateau[ligne][col] = 'D'  # 'D' représente une dame
+        print(f"Le pion en ({ligne}, {col}) est devenu une dame!")
+
+        # Utiliser l'image correspondante pour une dame
+        if pion == 1:  # Pion blanc
+            gfx.screen.blit(gfx.dame_blanche, (
+                gfx.marge_gauche + gfx.case_size * col,
+                gfx.marge_haut + gfx.case_size * ligne
+            ))
+        elif pion == 2:  # Pion noir
+            gfx.screen.blit(gfx.dame_noir, (
+                gfx.marge_gauche + gfx.case_size * col,
+                gfx.marge_haut + gfx.case_size * ligne
+            ))
+        pygame.display.flip()  # Met à jour l'affichage
+
+
 # Placer les pions sur le plateau
 for i in range(5, 8):
     for j in range(8):
